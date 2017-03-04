@@ -18,19 +18,19 @@ with tf.Graph().as_default():
 	with tf.name_scope('Layer1'):
 		w1 = tf.Variable(tf.constant(0.),name="Weights")
 		b1 = tf.Variable(tf.constant(0.1),name="bias")
-		X2 = tf.nn.tanh(tf.mul(X1,w1)+b1)
+		X2 = tf.nn.tanh(tf.multiply(X1,w1)+b1)
 		tf.summary.scalar("w1",w1)
 		tf.summary.scalar("b1",b1)
 	#Second Layer
 	with tf.name_scope('Layer2'):
 		w2 = tf.Variable(tf.constant(0.),name="Weights")
 		b2 = tf.Variable(tf.constant(0.1),name="bias")
-		Y = tf.nn.sigmoid(tf.mul(X2,w2)+b2, name="Output")
+		Y = tf.nn.sigmoid(tf.multiply(X2,w2)+b2, name="Output")
 		tf.summary.scalar("w2",w2)
 		tf.summary.scalar("b2",b2)
 	#Define Loss and Training Step
 	with tf.name_scope('Train'):
-		Loss = tf.sqrt(tf.abs(tf.reduce_mean(tf.sub(Y_,Y))),name="Loss")
+		Loss = tf.sqrt(tf.abs(tf.reduce_mean(tf.subtract(Y_,Y))),name="Loss")
 		train_step = tf.train.AdamOptimizer(0.01).minimize(Loss)
 		tf.summary.scalar("Loss",Loss)
 	#Delete Older Saves
@@ -43,6 +43,8 @@ with tf.Graph().as_default():
 	sess = tf.Session()
 	summary_writer = tf.summary.FileWriter("SaveFiles", graph=tf.get_default_graph())
 	sess.run(init)
+	#export Graph
+	tf.train.write_graph(sess.graph_def, "SaveFiles", "Graph.pb")
 	#Train Models
 	MaxStep = 5000
 	for Step in range(MaxStep):
