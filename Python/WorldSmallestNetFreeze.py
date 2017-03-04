@@ -4,6 +4,7 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
+from tensorflow.python.tools import freeze_graph
 
 import tensorflow as tf
 import numpy as np
@@ -75,3 +76,21 @@ with tf.Graph().as_default():
 	InputTensor1 = np.expand_dims(InputTensor1, axis=1)
 	print("Input: 0  | Output: ",sess.run(Y,feed_dict={Y_:InputTensor0,X1:InputTensor0}))
 	print("Input: 1  | Output: ",sess.run(Y,feed_dict={Y_:InputTensor1,X1:InputTensor1}))
+
+# Freeze the graph
+checkpoint_state_name = "checkpoint"
+input_graph_name = "SaveFiles/Graph.pb"
+output_graph_name = "SaveFiles/frozen_graph.pb"
+input_saver_def_path = ""
+input_binary = False
+input_checkpoint_path = "SaveFiles/model.ckpt-4999"
+output_node_names = "Layer2/Output" 
+restore_op_name = "save/restore_all"
+filename_tensor_name = "save/Const:0"
+clear_devices = False
+
+freeze_graph.freeze_graph(input_graph_name, input_saver_def_path,
+                          input_binary, input_checkpoint_path,
+                          output_node_names, restore_op_name,
+                          filename_tensor_name, output_graph_name,
+                          clear_devices,"")
