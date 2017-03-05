@@ -4,12 +4,12 @@
 
 int main(int argc, char** argv) {
 
-	std::string PathGraph = "/home/daniel/tensorflow/tensorflow/WorldSmallestNet/Python/SaveFiles/frozen_graph.pb";
+	std::string PathGraph = "/home/daniel/tensorflow/tensorflow/WorldSmallestNet/SaveFiles/frozen_graph.pb";
 
-	//Setup Inputs and Outputs
+	//Setup Input Tensors 
 	tensorflow::Tensor Input1(tensorflow::DT_FLOAT, tensorflow::TensorShape({1,1}));
 	tensorflow::Tensor Input0(tensorflow::DT_FLOAT, tensorflow::TensorShape({1,1}));
-
+	// Output
 	std::vector<tensorflow::Tensor> output;
 	Input1.scalar<float>()() = 1.0;
 	Input0.scalar<float>()() = 0.0;
@@ -22,6 +22,7 @@ int main(int argc, char** argv) {
    		std::cout << status.ToString() << "\n";
     	return 1;
     }
+    // Define Graph
 	tensorflow::GraphDef graph_def;
 	status = ReadBinaryProto(tensorflow::Env::Default(),PathGraph, &graph_def);
 	
@@ -37,7 +38,7 @@ int main(int argc, char** argv) {
         return 1;
     }
  
-
+    // Feed dict
 	std::vector<std::pair<std::string, tensorflow::Tensor>> inputs = {
    		 { "Input:0", Input0},
     	};

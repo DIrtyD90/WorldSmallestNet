@@ -47,7 +47,7 @@ with tf.Graph().as_default():
 	#export Graph
 	tf.train.write_graph(sess.graph_def, "SaveFiles", "Graph.pb")
 	#Train Models
-	MaxStep = 5000
+	MaxStep = 10000
 	for Step in range(MaxStep):
 		# make RandomBatches with 0 and 1
 		NumberBatch = []
@@ -83,7 +83,7 @@ input_graph_name = "SaveFiles/Graph.pb"
 output_graph_name = "SaveFiles/frozen_graph.pb"
 input_saver_def_path = ""
 input_binary = False
-input_checkpoint_path = "SaveFiles/model.ckpt-4999"
+input_checkpoint_path = "SaveFiles/model.ckpt-9999"
 output_node_names = "Layer2/Output" 
 restore_op_name = "save/restore_all"
 filename_tensor_name = "save/Const:0"
