@@ -1,2 +1,2 @@
 # WorldSmallestNet
-A little example for the use of TensorFlow an C++.
+A little example for the use of TensorFlow and C++.
